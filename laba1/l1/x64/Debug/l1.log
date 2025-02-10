@@ -1,0 +1,4 @@
+﻿  l1.cpp
+D:\Grafika\laba1\l1\l1.cpp(277,24): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+D:\Grafika\laba1\l1\l1.cpp(280,24): warning C4838: Преобразование из "int" в "double" требует сужающего преобразования.
+  l1.vcxproj -> D:\Grafika\laba1\x64\Debug\l1.exe
