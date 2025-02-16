@@ -2,6 +2,7 @@
 //
 
 #include "framework.h"
+#include <cstring>
 #include "l1.h"
 
 #define MAX_LOADSTRING 100
@@ -131,116 +132,64 @@ struct Point {
     double x, y, w = 1.0;
 };
 
-Point afinovTransform(const Point& p, double transpositionMatrix[3][3]) {
+int indexTransformMatrix = 0;
+
+Point transform(const Point& p, const double Matrix[3][3]) {
     return {
-        p.x * transpositionMatrix[0][0] + p.y * transpositionMatrix[0][1] + p.w * transpositionMatrix[0][2],
-        p.x* transpositionMatrix[1][0] + p.y * transpositionMatrix[1][1] + p.w * transpositionMatrix[1][2],
-        1.0
+        p.x * Matrix[0][0] + p.y * Matrix[1][0] + p.w * Matrix[2][0],
+        p.x * Matrix[0][1] + p.y * Matrix[1][1] + p.w * Matrix[2][1],
+        p.x * Matrix[0][2] + p.y * Matrix[1][2] + p.w * Matrix[2][2]
     };
 }
 
-void DrawFigures(HDC hdc, Figure figures[], int figureCount) {
+void DrawFiguresTrasform(HDC hdc, Figure figures[], int figureCount, double Matrix[3][3]) {
     for (int i = 0; i < figureCount; i++) {
         if (figures[i].count < 2) continue;
 
-        MoveToEx(hdc, figures[i].points[0].x, figures[i].points[0].y, NULL);
-
-        for (int j = 1; j < figures[i].count; j++) {
-            LineTo(hdc, figures[i].points[j].x, figures[i].points[j].y);
-        }
-    }
-}
-
-void DrawSegment(HDC hdc) {
-    MoveToEx(hdc, 100, 210, NULL);
-    LineTo(hdc, 1350, 210);
-    for (int i = 0; i < 6; i++) {
-        MoveToEx(hdc, 100 + i * 250, 205, NULL);
-        LineTo(hdc, 100 + i * 250, 215);
-    }
-    for (int i = 0; i < 6; i++) {
-        MoveToEx(hdc, 225 + + i * 250, 208, NULL);
-        LineTo(hdc, 225 + i * 250, 213);
-    }
-}
-
-void DrawFiguresTrasposition(HDC hdc, Figure figures[], int figureCount, double transpositionMatrix[3][3]) {
-    for (int i = 0; i < figureCount; i++) {
-        if (figures[i].count < 2) continue;
-
-        Point p = afinovTransform({(double)figures[i].points[0].x, (double)figures[i].points[0].y }, transpositionMatrix);
+        Point p = transform({(double)figures[i].points[0].x, (double)figures[i].points[0].y }, Matrix);
         MoveToEx(hdc, (int)p.x, (int)p.y, NULL);
 
         for (int j = 1; j < figures[i].count; j++) {
-            p = afinovTransform({(double)figures[i].points[j].x, (double)figures[i].points[j].y }, transpositionMatrix);
+            p = transform({(double)figures[i].points[j].x, (double)figures[i].points[j].y }, Matrix);
             LineTo(hdc, (int)p.x, (int)p.y);
         }
     }
 }
 
-Point scaling(const Point& p, double scalingMatrix[3][3]) {
-    return {
-        p.x * scalingMatrix[0][0] + p.y * scalingMatrix[0][1] + p.w * scalingMatrix[0][2],
-        p.x * scalingMatrix[1][0] + p.y * scalingMatrix[1][1] + p.w * scalingMatrix[1][2],
-        1.0
-    };
-}
-
-void DrawFiguresScaling(HDC hdc, Figure figures[], int figureCount, double scalingMatrix[3][3]) {
+RECT FindingLength(Figure figures[], int figureCount) {
+    int minX = figures[0].points[0].x;
+    int maxX = figures[0].points[0].x;
+    int minY = figures[0].points[0].y;
+    int maxY = figures[0].points[0].y;
     for (int i = 0; i < figureCount; i++) {
-        if (figures[i].count < 2) continue;
+        if (figureCount < 2) continue;
 
-        Point p = scaling({ (double)figures[i].points[0].x, (double)figures[i].points[0].y }, scalingMatrix);
-        MoveToEx(hdc, (int)p.x + 50, (int)p.y + 150, NULL);
-
-        for (int j = 1; j < figures[i].count; j++) {
-            p = scaling({ (double)figures[i].points[j].x, (double)figures[i].points[j].y }, scalingMatrix);
-            LineTo(hdc, (int)p.x + 50, (int)p.y + 150);
+        for (int j = 0; j < figures[i].count; j++) {
+            if (figures[i].points[j].x < minX) minX = figures[i].points[j].x;
+            if (figures[i].points[j].x > maxX) maxX = figures[i].points[j].x;
+            if (figures[i].points[j].y < minY) minY = figures[i].points[j].y;
+            if (figures[i].points[j].y > maxY) maxY = figures[i].points[j].y;
         }
     }
+    return {minX, minY, maxX, maxY};
 }
 
-Point rotation(const Point& p, double rotationMatrix[3][3]) {
-    return {
-        p.x * rotationMatrix[0][0] + p.y * rotationMatrix[0][1] + p.w * rotationMatrix[0][2],
-        p.x * rotationMatrix[1][0] + p.y * rotationMatrix[1][1] + p.w * rotationMatrix[1][2],
-        1.0
-    };
-}
-
-void DrawRotation(HDC hdc, Figure figures[], int figureCount, double rotationMatrix[3][3]) {
-    for (int i = 0; i < figureCount; i++) {
-        if (figures[i].count < 2) continue;
-
-        Point p = scaling({ (double)figures[i].points[0].x, (double)figures[i].points[0].y }, rotationMatrix);
-        MoveToEx(hdc, (int)p.x+825, (int)p.y+250, NULL);
-
-        for (int j = 1; j < figures[i].count; j++) {
-            p = scaling({ (double)figures[i].points[j].x, (double)figures[i].points[j].y }, rotationMatrix);
-            LineTo(hdc, (int)p.x+825, (int)p.y+250);
-        }
-    }
-}
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
-    case WM_COMMAND:
+    case WM_KEYDOWN:
+        switch (wParam)
         {
-            int wmId = LOWORD(wParam);
-            // Разобрать выбор в меню:
-            switch (wmId)
-            {
-            case IDM_ABOUT:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-                break;
-            case IDM_EXIT:
-                DestroyWindow(hWnd);
-                break;
-            default:
-                return DefWindowProc(hWnd, message, wParam, lParam);
-            }
+        case VK_LEFT:
+            indexTransformMatrix = (indexTransformMatrix - 1 + 4) % 4;
+            InvalidateRect(hWnd, NULL, true);
+            break;
+        case VK_RIGHT:
+            indexTransformMatrix = (indexTransformMatrix + 1) % 4;
+            InvalidateRect(hWnd, NULL, true);
+            break;
         }
         break;
     case WM_PAINT:
@@ -272,19 +221,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 {eye, 4}
             };
 
-            DrawFigures(hdc, figures, 2);
-
-            int deltaX = 250 * 3.5;
-
-            double transpositionMatrix[3][3] = {
-                {1, 0, deltaX},
+            double zeroTrasformMatrix[3][3] = {
+                {1, 0, 0},
                 {0, 1, 0},
                 {0, 0, 1}
             };
 
-            DrawFiguresTrasposition(hdc, figures, 2, transpositionMatrix);
+            RECT boundingBox = FindingLength(figures, 2);
+            int deltaX = boundingBox.right - boundingBox.left;
+            int deltaY = boundingBox.bottom - boundingBox.top;
 
-            DrawSegment(hdc);
+            deltaX = deltaX * 3.5;
+
+            double transpositionMatrix[3][3] = {
+                {1, 0, 0},
+                {0, 1, 0},
+                {(double)deltaX, 0, 1}
+            };
 
             double scalingMatrix[3][3] = {
                 {0.5, 0 , 0},
@@ -292,15 +245,31 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 {0, 0, 1}
             };
 
-            DrawFiguresScaling(hdc, figures, 2, scalingMatrix);
-
             double rotationMatrix[3][3]{
                 {0.939693, -0.34202, 0},
                 {0.34202, 0.939693, 0},
                 {0, 0, 1}
             };
 
-            DrawRotation(hdc, figures, 2, rotationMatrix);
+            double transformMatrix[3][3];
+
+            switch (indexTransformMatrix)
+            {
+            case 0:
+                memcpy(transformMatrix, zeroTrasformMatrix, sizeof(transformMatrix));
+                break;
+            case 1:
+                memcpy(transformMatrix, transpositionMatrix, sizeof(transformMatrix));
+                break;
+            case 2:
+                memcpy(transformMatrix, scalingMatrix, sizeof(transformMatrix));
+                break;
+            case 3:
+                memcpy(transformMatrix, rotationMatrix, sizeof(transformMatrix));
+                break;
+            }
+
+            DrawFiguresTrasform(hdc, figures, 2, transformMatrix);
 
             EndPaint(hWnd, &ps);
         }
