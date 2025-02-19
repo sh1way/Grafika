@@ -3,6 +3,9 @@
   "WorkspaceRootPath": "D:\\Grafika\\laba2\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\fhvyg\\Downloads\\lab2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{60856FAD-5B5C-413C-8EE9-D3D308D39FD0}|laba2\\laba2.vcxproj|D:\\Grafika\\laba2\\laba2\\laba2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{60856FAD-5B5C-413C-8EE9-D3D308D39FD0}|laba2\\laba2.vcxproj|solutionrelative:laba2\\laba2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
@@ -19,12 +22,23 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "lab2.cpp",
+              "DocumentMoniker": "C:\\Users\\fhvyg\\Downloads\\lab2.cpp",
+              "ToolTip": "C:\\Users\\fhvyg\\Downloads\\lab2.cpp",
+              "ViewState": "AgIAAMMAAAAAAAAAAAAAANcAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-02-16T14:37:39.993Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "laba2.cpp",
               "DocumentMoniker": "D:\\Grafika\\laba2\\laba2\\laba2.cpp",
               "RelativeDocumentMoniker": "laba2\\laba2.cpp",
               "ToolTip": "D:\\Grafika\\laba2\\laba2\\laba2.cpp",
               "RelativeToolTip": "laba2\\laba2.cpp",
-              "ViewState": "AgIAAMAAAAAAAAAAAAAAANYAAAA1AAAAAAAAAA==",
+              "ViewState": "AgIAAKkAAAAAAAAAAADwv6QAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-02-13T09:28:59.07Z",
               "EditorCaption": ""
