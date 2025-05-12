@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Grafika\\laba5\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C53BCDB2-BBE5-489F-84EA-9EA9D03C2C60}|laba5\\laba5.vcxproj|D:\\Grafika\\laba5\\laba5\\laba5.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C53BCDB2-BBE5-489F-84EA-9EA9D03C2C60}|laba5\\laba5.vcxproj|solutionrelative:laba5\\laba5.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "laba5.cpp",
+              "DocumentMoniker": "D:\\Grafika\\laba5\\laba5\\laba5.cpp",
+              "RelativeDocumentMoniker": "laba5\\laba5.cpp",
+              "ToolTip": "D:\\Grafika\\laba5\\laba5\\laba5.cpp",
+              "RelativeToolTip": "laba5\\laba5.cpp",
+              "ViewState": "AgIAACYBAAAAAAAAAAAowFIBAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-12T19:47:55.499Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
